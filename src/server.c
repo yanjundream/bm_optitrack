@@ -25,7 +25,7 @@ pose2d pose_opt[20];
 void server()
 {
 
-printf("Build the simple server\n");
+    //printf("Build the simple server\n");
     struct sockaddr_in si_me, si_other;
      
     int s, slen = sizeof(si_other) , recv_len;
@@ -78,7 +78,7 @@ printf("Build the simple server\n");
 
 void DB_unpack(char* pData)
 {
-	printf("Begin Packet Rigid Body Data\n-------\n");
+	//printf("Begin Packet Rigid Body Data\n-------\n");
 	char *ptr = pData;
 
 	int major = 2;
