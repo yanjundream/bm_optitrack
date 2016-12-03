@@ -39,8 +39,33 @@ void computeRB(char *Sid, char *Rid, float *range, float *bearing)
 	int SidI = strtol(Sid+2,NULL,10);
 	int RidI = strtol(Rid+2,NULL,10);
 	*range = sqrt(pow(p2d[SidI].x-p2d[RidI].x,2)+pow(p2d[SidI].y-p2d[RidI].y,2));
-	*bearing = p2d[SidI].theta-p2d[RidI].theta;
-        fprintf(stdout, "Sender id: %d - (%.2fm,%.2frad) - Receiver id : %d\n", SidI, RidI, *range, *bearing);
+	float dely=p2d[SidI].y-p2d[RidI].y;
+	float delx=-(p2d[SidI].x-p2d[RidI].x);
+	
+
+	
+	float delTheta=atan(dely/delx);// change difference of angle between range[0, 360degrees]
+	if(delx<0&&dely>0){
+		delTheta=3.14+delTheta;}
+	if(delx<0&&dely<0){
+		delTheta=3.14+delTheta;}
+	if(delx>0&&dely<0){
+		delTheta=6.28+delTheta;}
+
+
+	*bearing=delTheta-p2d[RidI].theta;// change the angle to reciever coordinate system
+	if(*bearing<0){
+		*bearing+=6.28;}
+	if(*bearing>6.28){
+		*bearing-=6.28;}
+        fprintf(stdout, "Sender id: %d - (%.2fm,%.2f degrees) - Receiver id : %d\n", SidI, *range, *bearing*180/3.14, RidI);
+
+
+/* for testing show
+
+	if (SidI==2){
+	printf("receiver degree:%.2f \n",p2d[RidI].theta );
+	fprintf(stdout, "dely: %.2f  delx: %.2f; delTheta: %.2fdegrees; ReceiverDegreees: %.2f; bearing: %.2f degrees\n", dely, delx, delTheta*180/3.14,p2d[RidI].theta*180/3.14, *bearing*180/3.14);}*/
 	return;
 }
 
