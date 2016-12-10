@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include "bm_dispatcher.h"
 #include "bm_bt_datastream.h"
+#include "server.h"
 
 /****************************************/
 /****************************************/
@@ -100,6 +101,9 @@ int main(int argc, char* argv[]) {
          return EXIT_FAILURE;
    }
    else {
+      //positiong thread
+      pthread_create(&tid,NULL,thrd_func,NULL);
+
       /* Streaming mode */
       /* Create the stream dispatcher */
       bm_dispatcher_t d = bm_dispatcher_new();
@@ -159,6 +163,7 @@ int main(int argc, char* argv[]) {
       /* All done */
       bm_dispatcher_destroy(d);
    }
+   thread_stop=1;
    return EXIT_SUCCESS;
 }
 

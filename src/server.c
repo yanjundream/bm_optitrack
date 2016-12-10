@@ -8,10 +8,12 @@
 #include<arpa/inet.h>
 #include<sys/socket.h>
 #include "bm_pose2d.h"
+//#include "server.h"
  
 #define BUFLEN 3000  //Max length of buffer
 #define PORT 8888   //The port on which to listen for incoming data
- 
+
+
 void die(char *s)
 {
     perror(s);
@@ -22,6 +24,7 @@ void DB_unpack(char *pData);
 void close(int s);
 
 pose2d pose_opt[20];
+thread_stop=0;
 
 void server()
 {
@@ -129,11 +132,16 @@ void DB_unpack(char* pData)
   		float fYaw = atan2(2 * (qw * qy + qz * qx), 1 - 2 * (qx * qx + qy * qy));
 		pose_opt[ID].theta=fYaw;
 
-	//	printf("@unpack_dataTransID : %d\n", ID);
-	//	printf("@unpack_dataTranspos: [%3.2f,%3.2f,%3.2f]\n", x, y, z);
-	//	printf("@unpack_dataTransori: [%3.2f,%3.2f,%3.2f,%3.2f]\n", qx, qy, qz, qw);
-
+		//printf("@unpack_dataTransID : %d\n", ID);
+		//printf("@unpack_dataTranspos: [%3.2f,%3.2f,%3.2f]\n", x, y, z);
+		//printf("@unpack_dataTransori: [%3.2f,%3.2f,%3.2f,%3.2f]\n", qx, qy, qz, qw);
+		//printf("@unpack_dataTransori: [%3.2f,%3.2f]\n", fYaw, fRoll);
 	}
 
 }
 
+void *thrd_func(void *arg){
+	while(thread_stop==0) {
+		server();
+	}
+}

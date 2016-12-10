@@ -4,12 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/jun/mistlab/bm/bm_optitrack/src/bm_bt_datastream.c" "/home/jun/mistlab/bm/bm_optitrack/build/CMakeFiles/blabbermouth.dir/bm_bt_datastream.c.o"
-  "/home/jun/mistlab/bm/bm_optitrack/src/bm_datastream.c" "/home/jun/mistlab/bm/bm_optitrack/build/CMakeFiles/blabbermouth.dir/bm_datastream.c.o"
-  "/home/jun/mistlab/bm/bm_optitrack/src/bm_dispatcher.c" "/home/jun/mistlab/bm/bm_optitrack/build/CMakeFiles/blabbermouth.dir/bm_dispatcher.c.o"
-  "/home/jun/mistlab/bm/bm_optitrack/src/bm_tcp_datastream.c" "/home/jun/mistlab/bm/bm_optitrack/build/CMakeFiles/blabbermouth.dir/bm_tcp_datastream.c.o"
-  "/home/jun/mistlab/bm/bm_optitrack/src/main.c" "/home/jun/mistlab/bm/bm_optitrack/build/CMakeFiles/blabbermouth.dir/main.c.o"
-  "/home/jun/mistlab/bm/bm_optitrack/src/server.c" "/home/jun/mistlab/bm/bm_optitrack/build/CMakeFiles/blabbermouth.dir/server.c.o"
+  "/home/mrlgn/jun/bm_optitrack/src/bm_bt_datastream.c" "/home/mrlgn/jun/bm_optitrack/build/CMakeFiles/blabbermouth.dir/bm_bt_datastream.c.o"
+  "/home/mrlgn/jun/bm_optitrack/src/bm_datastream.c" "/home/mrlgn/jun/bm_optitrack/build/CMakeFiles/blabbermouth.dir/bm_datastream.c.o"
+  "/home/mrlgn/jun/bm_optitrack/src/bm_dispatcher.c" "/home/mrlgn/jun/bm_optitrack/build/CMakeFiles/blabbermouth.dir/bm_dispatcher.c.o"
+  "/home/mrlgn/jun/bm_optitrack/src/bm_tcp_datastream.c" "/home/mrlgn/jun/bm_optitrack/build/CMakeFiles/blabbermouth.dir/bm_tcp_datastream.c.o"
+  "/home/mrlgn/jun/bm_optitrack/src/main.c" "/home/mrlgn/jun/bm_optitrack/build/CMakeFiles/blabbermouth.dir/main.c.o"
+  "/home/mrlgn/jun/bm_optitrack/src/server.c" "/home/mrlgn/jun/bm_optitrack/build/CMakeFiles/blabbermouth.dir/server.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
