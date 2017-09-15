@@ -6,7 +6,7 @@
 #include "bm_bt_datastream.h"
 #include "server.h"
 
-/****************************************/
+/******************main**********************/
 /****************************************/
 
 void usage(FILE* stream, const char* prg) {
