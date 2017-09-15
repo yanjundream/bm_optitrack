@@ -102,40 +102,26 @@ void DB_unpack(char* pData)
 		ID= strtol(szName+2,NULL,10);// Decided by the name gived to the regidbody
 		//memcpy(&ID, ptr, 4);
 		ptr += 4;
-		float x = 0.0f;
-		memcpy(&x, ptr, 4);
-		pose_opt[ID].x=x;
-		ptr += 4;
-		float y = 0.0f;
-		memcpy(&y, ptr, 4);
-		ptr += 4;
-		float z = 0.0f;
-		memcpy(&z, ptr, 4);
-		pose_opt[ID].y=z;
-		ptr += 4;
-		float qx = 0;
-		memcpy(&qx, ptr, 4);
-		ptr += 4;
-		float qy = 0;
-		memcpy(&qy, ptr, 4);
-		
-		ptr += 4;
-		float qz = 0;
-		memcpy(&qz, ptr, 4);
-		ptr += 4;
-		float qw = 0;
-		memcpy(&qw, ptr, 4);
+
+
+		float yaw = 0;
+		memcpy(&yaw, ptr, 4);
 		ptr += 4;
 
-		float fRoll = atan2(2 * (qw * qz + qx * qy), 1 - 2 * (qz * qz + qx * qx));
-  		//float fPitch = asin(CLAMP(2 * (qw * qx - qy * qz), -1.0f, 1.0f));
-  		float fYaw = atan2(2 * (qw * qy + qz * qx), 1 - 2 * (qx * qx + qy * qy));
-		pose_opt[ID].theta=fYaw;
+		float abx = 0;
+		memcpy(&abx, ptr, 4);
+		ptr += 4;
 
-		//printf("@unpack_dataTransID : %d\n", ID);
-		//printf("@unpack_dataTranspos: [%3.2f,%3.2f,%3.2f]\n", x, y, z);
-		//printf("@unpack_dataTransori: [%3.2f,%3.2f,%3.2f,%3.2f]\n", qx, qy, qz, qw);
-		//printf("@unpack_dataTransori: [%3.2f,%3.2f]\n", fYaw, fRoll);
+		float aby = 0;
+		memcpy(&aby, ptr, 4);
+		ptr += 4;
+
+
+		pose_opt[ID].theta=yaw;
+		pose_opt[ID].x=abx; 
+		pose_opt[ID].y=aby;
+		pose_opt[ID].idr=ID;
+
 	}
 
 }

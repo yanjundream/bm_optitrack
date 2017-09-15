@@ -11,6 +11,11 @@
 #include "server.h"
 #include "bm_pose2d.h"
 
+//communication range between robots
+float Communication_Range=10.0;
+
+
+
 /****************************************/
 /****************************************/
 
@@ -40,28 +45,16 @@ void computeRB(char *Sid, char *Rid, float *range, float *bearing) {
    RidI = strtol(Rid + 2, NULL, 10);
    *range = sqrt(pow(p2d[SidI].x - p2d[RidI].x, 2) + pow(p2d[SidI].y - p2d[RidI].y, 2));
    float dely = p2d[SidI].y - p2d[RidI].y;
-   float delx = -(p2d[SidI].x - p2d[RidI].x);
+   float delx = p2d[SidI].x - p2d[RidI].x;
 
 
-   float delTheta = atan(dely / delx);// change difference of angle between range[0, 360degrees]
-   if (delx < 0 && dely > 0) {
-      delTheta = 3.14 + delTheta;
-   }
-   if (delx < 0 && dely < 0) {
-      delTheta = 3.14 + delTheta;
-   }
-   if (delx > 0 && dely < 0) {
-      delTheta = 6.28 + delTheta;
-   }
+   float delTheta = atan2(dely,delx);
 
 
    *bearing = delTheta - p2d[RidI].theta;// change the angle to reciever coordinate system
-   if (*bearing < 0) {
-      *bearing += 6.28;
-   }
-   if (*bearing > 6.28) {
-      *bearing -= 6.28;
-   }
+   *bearing=remainder(*bearing,2.0*M_PI);
+
+
 
    fprintf(stdout, "Sender id: %d - (%.2fm,%.2f degrees) - Receiver id : %d\n", SidI, *range, *bearing * 180 / 3.14, RidI);
    /*   if (RidI == 2) {  printf("receiver degree:%.2f \n",p2d[RidI].theta );
@@ -105,9 +98,11 @@ void bm_dispatcher_broadcast(bm_dispatcher_t dispatcher,
 
 	computeRB(stream->id, cur->id, &range, &bearing);
      //fprintf(stdout, "Sender id: %d - (%.2fm,%.2frad) - Receiver id : %d\n", stream->id, range, bearing, cur->id);
-	interceptlocalisation(data, dispatcher->msg_len, range, bearing);
+	//if distance between two robots is out of range, do not send
+  if(range<=Communication_Range){
+  interceptlocalisation(data, dispatcher->msg_len, range, bearing);
          sent = cur->send(cur, data, dispatcher->msg_len);
-	}
+       }
       if(sent < dispatcher->msg_len) {
          fprintf(stderr, "sent %zd bytes instead of %zu to %s: %s\n",
                  sent,
@@ -115,6 +110,7 @@ void bm_dispatcher_broadcast(bm_dispatcher_t dispatcher,
                  cur->descriptor,
                  cur->status_desc);
       }
+    }
       // printf("Now is after computerRB***sender ID: %d***\n", SidI);
       cur = cur->next;
 
